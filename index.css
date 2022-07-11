@@ -4,7 +4,7 @@ body {
 }
 
 div.text {
-    font-size: 30vh;
+    font-size: 300px;
     text-align: center;
 }
 
@@ -12,7 +12,7 @@ div.text {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
 }
 
 .box{
@@ -28,4 +28,11 @@ div.text {
 .pause{
     border-style: double;
     border-width:0px 0px 0px 60px;
-  }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
+}
