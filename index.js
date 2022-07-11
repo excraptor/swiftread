@@ -1,6 +1,6 @@
 let currentWordIndex = 0
 let stop = false
-const speed = 20
+const speed = 40
 const endOfSentenceSpeed = 60
 const test = `Két hétig terveztük, hogy majd veszünk. Mindennap megálltunk a kirakatok előtt, sóváran néztük. Végül is a születésem napján, április 5-én déli tizenkét órakor megkérdeztük, mibe kerül. - 275 frankba - mondta a gyümölcsárus. - Elsőrendű, teljesen friss, zamatos ananász.
 
@@ -11,7 +11,7 @@ A szállóban rögtön híre futott, hogy a kilencesben vettek egy ananászt. A 
 Este meghámoztuk és megettük. Semmi íze sem volt. Alig valamivel volt rosszabb, mint a tök. Nyersen is, cukorral is, rummal is. Nagy nehezen legyűrtük, ittunk rá egy pohár vizet. Harmadnap szembetalálkoztunk az angol lánnyal a folyosón. "Hogy ízlett?" - érdeklődött. "Nagyon" - feleltem. Felsóhajtott. "Hiába - mondta -, az ananász, ananász." Azóta lopva meg-megállok a gyümölcsárus standja előtt, és vágyakozva nézem az ananászokat.`
 
 function containsEndOfSentence(word) {
-    return word.includes(".") || word.includes("?") || word.includes("!")
+    return word.includes(".") || word.includes("?") || word.includes("!") || word.includes(",") || word.includes("\"")
 }
 
 function sleep(ms) {
@@ -20,6 +20,10 @@ function sleep(ms) {
 
 function getWords(str) {
     return str.substring(currentWordIndex, str.length).split(" ")
+}
+
+function wordReadingSpeed(word) {
+    return speed * (Math.sqrt(word.length)+2.2) + (containsEndOfSentence(word) ? endOfSentenceSpeed : 0)
 }
 
 class DocumentReader {
@@ -44,7 +48,7 @@ class DocumentReader {
         while(this.isReading) {
             const word = this.nextWord()
             $("#text").text(word)
-            await sleep(word.length * speed + (containsEndOfSentence(word) ? endOfSentenceSpeed : 0))
+            await sleep(wordReadingSpeed(word))
         }
     }
 
